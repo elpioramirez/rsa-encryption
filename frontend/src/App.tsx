@@ -1,6 +1,6 @@
 import {FC, Fragment, useCallback, useState} from 'react';
 import axios from 'axios';
-import { Form, Input, Checkbox, Button, Layout } from 'antd';
+import { Form, Input, Checkbox, Button, Layout, Card } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import {useEncrypt} from "./utils/useEncrypt";
 
@@ -33,55 +33,57 @@ export const App: FC = () => {
 
   return (
       <Layout style={{ minHeight: '100vh' }}>
-          <Form
-              name="login-form"
-              form={loginForm}
-              initialValues={{ remember: true }}
-              onFinish={handleSubmit}
-              autoComplete="off"
-          >
-            <Form.Item
-                name="email"
-                rules={[{ required: true, message: 'Email is Required' }]}
-            >
-              <Input prefix={<UserOutlined />} placeholder={'Email'} />
-            </Form.Item>
-            <Form.Item
-                name="password"
-                rules={[{ required: true, message: 'Please input your Password!' }]}
-            >
-              <Input
-                  prefix={<LockOutlined className="site-form-item-icon" />}
-                  type="password"
-                  placeholder={'Password'}
-              />
-            </Form.Item>
-            <Form.Item>
-              <Form.Item noStyle>
-                <Checkbox
-                    checked={rememberMe}
-                    onChange={(e) => {
-                      setRememberMe(e.target.checked);
-                    }}
-                >
-                  {'Remember Me'}
-                </Checkbox>
-              </Form.Item>
-            </Form.Item>
-
-            <Form.Item style={{ display: 'inline-block', width: '100%', marginBottom: '0.75rem' }}>
-              <Button
-                  style={{ width: '100%', marginBottom: 0 }}
-                  type="primary"
-                  htmlType="submit"
-                  className="login-form-button"
+          <Card>
+              <Form
+                  name="login-form"
+                  form={loginForm}
+                  initialValues={{ remember: true }}
+                  onFinish={handleSubmit}
+                  autoComplete="off"
               >
-                {'Login'}
-              </Button>
-            </Form.Item>
-          </Form>
+                <Form.Item
+                    name="email"
+                    rules={[{ required: true, message: 'Email is Required' }]}
+                >
+                  <Input prefix={<UserOutlined />} placeholder={'Email'} />
+                </Form.Item>
+                <Form.Item
+                    name="password"
+                    rules={[{ required: true, message: 'Please input your Password!' }]}
+                >
+                  <Input
+                      prefix={<LockOutlined className="site-form-item-icon" />}
+                      type="password"
+                      placeholder={'Password'}
+                  />
+                </Form.Item>
+                <Form.Item>
+                  <Form.Item noStyle>
+                    <Checkbox
+                        checked={rememberMe}
+                        onChange={(e) => {
+                          setRememberMe(e.target.checked);
+                        }}
+                    >
+                      {'Remember Me'}
+                    </Checkbox>
+                  </Form.Item>
+                </Form.Item>
+
+                <Form.Item style={{ display: 'inline-block', width: '100%', marginBottom: '0.75rem' }}>
+                  <Button
+                      style={{ width: '100%', marginBottom: 0 }}
+                      type="primary"
+                      htmlType="submit"
+                      className="login-form-button"
+                  >
+                    {'Login'}
+                  </Button>
+                </Form.Item>
+              </Form>
+          </Card>
           <Fragment>
-              {decryptedPassword && `The decrypted password is : ${decryptedPassword}`}
+              {decryptedPassword && (<Card>{`The decrypted password is : ${decryptedPassword}`}</Card>)}
           </Fragment>
       </Layout>
   );
